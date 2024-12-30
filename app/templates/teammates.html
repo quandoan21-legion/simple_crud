@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/teammate.css">
+    <title>User List</title>
+</head>
+<body>
+<h1>Teammates List</h1>
+<div class="center-links">
+    <a href="/new-teammate" class="button">Add New Teammate</a><br>
+    <a href="/logout" class="button">Logout</a>
+</div>
+<div class="search-container">
+    <form action="/search-user" method="get">
+        <input type="text" name="search" id="search"
+               placeholder="{{ search_term if search_term else 'Search for users...' }}">
+        <button type="submit">Search</button>
+    </form>
+</div>
+<table>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash-message">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Active</th>
+        <th>Edit</th>
+    </tr>
+    </thead>
+    <tbody id="userTable">
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.password }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.active }}</td>
+        <td><a href="teammate-info/{{user.id}}">edit</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="pagination">
+    <a href="/search-user?offset={{ current_page - 1 }}?">&laquo;</a>
+    {% for page in range(1, total_pages + 1) %}
+    <a href="/search-user?offset={{ page }}">{{ page }}</a>
+    {% endfor %}
+    <a href="/search-user?offset={{ current_page + 1 }}">&raquo;</a>
+</div>
+</body>
+</html>

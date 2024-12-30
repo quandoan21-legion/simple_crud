@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+<div class="user-profile">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash-message">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <h1>User Profile</h1>
+    <p><strong>Name:</strong> {{ current_user.name }}</p>
+    <p><strong>Username:</strong> {{ current_user.username }}</p>
+    <p><strong>Email:</strong> {{ current_user.email }}</p>
+    <form action="/disable-account/{{current_user.id}}" method="post">
+        <button type="submit" class="btn-disable">Disable Account</button>
+    </form>
+    <form action="/change-password/{{current_user.id}}" method="GET">
+        <button type="submit" class="btn-change-password">Change Password</button>
+    </form>
+    <form action="/logout" method="GET">
+        <button type="submit" class="btn-change-password">Logout</button>
+    </form>
+</div>
+</body>
+</html>

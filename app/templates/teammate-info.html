@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/user-info.css">
+    <title>Edit Teammate Info</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<h1>Edit Teammate Info</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="flash-message">
+    {{ messages[0] }}
+</div>
+{% endif %}
+{% endwith %}
+<form action="/teammate-info/{{ user.id }}" method="post">
+    <label for="active">Status:</label>
+    <select id="active" name="active">
+        <option value="True" {% if user.active %}selected{% endif %}>Active</option>
+        <option value="False" {% if not user.active %}selected{% endif %}>Deactive</option>
+    </select><br>
+    <input type="submit" value="Save">
+</form>
+<a href="{{ url_for('teammate_controller.list_users') }}">Back to User List</a>
+</body>
+</html>

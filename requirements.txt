@@ -1,0 +1,7 @@
+Flask
+Flask-SQLAlchemy
+psycopg2-binary
+bcrypt
+pycryptodome
+flask_login
+pytest
